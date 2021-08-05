@@ -12,7 +12,7 @@ class ResultViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var keyword: String?
+    var keyword: String? = "bring me"
     var itunesManager = ItunesManager()
     var itunesTracks: [ItunesMusic] = []
     var errorMessage: String?
