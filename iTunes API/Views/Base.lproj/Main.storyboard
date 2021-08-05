@@ -39,6 +39,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="searchBar" destination="iZ3-E5-1NM" id="XTC-hd-wy1"/>
                         <outlet property="tableView" destination="nXa-Bi-V6N" id="2Gw-DW-7gG"/>
                     </connections>
                 </viewController>

@@ -17,11 +17,11 @@ struct ItunesManager {
     
     func performRequest(keyword: String){
         let url = formatItunesUrl(keyword: keyword)
+        print(url)
         let session = URLSession(configuration: .default)
         let task = session.dataTask(with: url) { data,response,error  in
             if let error = error {
-                print(error)
-                delegate?.failItunesMusic("搜尋出現錯誤")
+                delegate?.failItunesMusic("Error requesting data, \(error)")
             }else{
                 if let safeData = data{
                     self.parseJSON(data: safeData)
@@ -60,8 +60,7 @@ struct ItunesManager {
                 delegate?.failItunesMusic("找不到結果")
             }
         }catch{
-            print(error)
-            delegate?.failItunesMusic("搜尋出現錯誤")
+            delegate?.failItunesMusic("Error decoding data, \(error)")
         }
     }
     

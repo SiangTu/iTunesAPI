@@ -10,6 +10,7 @@ import AVFoundation
 
 class ResultViewController: UIViewController {
     
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
     var keyword: String? = "bring me"
@@ -21,11 +22,11 @@ class ResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
         itunesManager.delegate = self
-        itunesManager.performRequest(keyword: keyword!)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -98,5 +99,12 @@ extension ResultViewController: UITableViewDelegate{
         let url = itunesTracks[indexPath.row].previewUrl
         playingPlayer = AVPlayer(url: url)
         playingPlayer?.play()
+    }
+}
+
+extension ResultViewController: UISearchBarDelegate{
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        itunesManager.performRequest(keyword: keyword!)
     }
 }
