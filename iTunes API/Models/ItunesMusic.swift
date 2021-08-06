@@ -10,7 +10,7 @@ import UIKit
 struct ItunesMusic {
     let title: String
     let artist: String
-    let albumImage: UIImage?
+    var albumImage: UIImage?
     let previewUrl: URL
 }
 

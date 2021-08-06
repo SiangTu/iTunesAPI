@@ -20,7 +20,14 @@
                                 <rect key="frame" x="0.0" y="95" width="414" height="767"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="iZ3-E5-1NM">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="ZTE-od-Ho9">
+                                <rect key="frame" x="177" y="418" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="3DT-aW-cMK"/>
+                                    <constraint firstAttribute="width" constant="60" id="d6E-b0-ynf"/>
+                                </constraints>
+                            </activityIndicatorView>
+                            <searchBar contentMode="redraw" placeholder="搜尋藝人、歌曲或專輯" showsSearchResultsButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iZ3-E5-1NM">
                                 <rect key="frame" x="0.0" y="44" width="414" height="51"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
@@ -28,6 +35,7 @@
                         <viewLayoutGuide key="safeArea" id="rx9-3Y-IF6"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="ZTE-od-Ho9" firstAttribute="centerY" secondItem="9aE-5X-2nv" secondAttribute="centerY" id="1Nx-GI-KfW"/>
                             <constraint firstItem="nXa-Bi-V6N" firstAttribute="top" secondItem="iZ3-E5-1NM" secondAttribute="bottom" id="HpY-q7-Wfu"/>
                             <constraint firstItem="nXa-Bi-V6N" firstAttribute="top" secondItem="iZ3-E5-1NM" secondAttribute="bottom" id="QZQ-4j-HF6"/>
                             <constraint firstItem="rx9-3Y-IF6" firstAttribute="bottom" secondItem="nXa-Bi-V6N" secondAttribute="bottom" id="Ta1-PR-Wx9"/>
@@ -36,9 +44,11 @@
                             <constraint firstItem="nXa-Bi-V6N" firstAttribute="leading" secondItem="rx9-3Y-IF6" secondAttribute="leading" id="qIq-xS-daZ"/>
                             <constraint firstItem="nXa-Bi-V6N" firstAttribute="trailing" secondItem="rx9-3Y-IF6" secondAttribute="trailing" id="qoc-B9-M0r"/>
                             <constraint firstItem="iZ3-E5-1NM" firstAttribute="top" secondItem="rx9-3Y-IF6" secondAttribute="top" id="t6J-hQ-2VH"/>
+                            <constraint firstItem="ZTE-od-Ho9" firstAttribute="centerX" secondItem="9aE-5X-2nv" secondAttribute="centerX" id="w4e-pF-kbU"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="ZTE-od-Ho9" id="lZ7-i2-IdO"/>
                         <outlet property="searchBar" destination="iZ3-E5-1NM" id="XTC-hd-wy1"/>
                         <outlet property="tableView" destination="nXa-Bi-V6N" id="2Gw-DW-7gG"/>
                     </connections>

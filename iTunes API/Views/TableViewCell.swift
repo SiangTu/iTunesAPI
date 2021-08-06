@@ -6,11 +6,7 @@
 //
 
 import UIKit
-import AVFoundation
 
-protocol TableViewCellDelegate {
-    func pauseMusic()
-}
 class TableViewCell: UITableViewCell {
 
     @IBOutlet weak var albumImageView: UIImageView!
@@ -18,22 +14,12 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var artistLabel: UILabel!
     @IBOutlet weak var pauseButton: UIButton!
     
-    var delegate: TableViewCellDelegate?
+    weak var controller: ResultViewController?
     
     @IBAction func pausePressed(_ sender: UIButton) {
         if pauseButton.currentImage != nil{
-            pauseButton.setImage(nil, for: .normal)
-            delegate?.pauseMusic()
+            controller?.playingPlayer?.pause()
         }
-    }
-    
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
     }
     
 }
