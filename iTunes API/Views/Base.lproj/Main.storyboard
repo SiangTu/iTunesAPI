@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8mk-Bo-Zu0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8mk-Bo-Zu0">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,9 +17,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="搜尋不到結果" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ao5-Ao-Ysf">
+                                <rect key="frame" x="134" y="333.5" width="146" height="29"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <color key="textColor" systemColor="systemGray2Color"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nXa-Bi-V6N">
-                                <rect key="frame" x="0.0" y="95" width="414" height="767"/>
+                                <rect key="frame" x="0.0" y="95" width="414" height="801"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <gestureRecognizers/>
                             </tableView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="ZTE-od-Ho9">
                                 <rect key="frame" x="177" y="418" width="60" height="60"/>
@@ -34,11 +42,14 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rx9-3Y-IF6"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="ZTE-od-Ho9" firstAttribute="centerY" secondItem="9aE-5X-2nv" secondAttribute="centerY" id="1Nx-GI-KfW"/>
                             <constraint firstItem="nXa-Bi-V6N" firstAttribute="top" secondItem="iZ3-E5-1NM" secondAttribute="bottom" id="HpY-q7-Wfu"/>
+                            <constraint firstItem="ao5-Ao-Ysf" firstAttribute="centerX" secondItem="9aE-5X-2nv" secondAttribute="centerX" id="M80-fN-6sA"/>
                             <constraint firstItem="nXa-Bi-V6N" firstAttribute="top" secondItem="iZ3-E5-1NM" secondAttribute="bottom" id="QZQ-4j-HF6"/>
-                            <constraint firstItem="rx9-3Y-IF6" firstAttribute="bottom" secondItem="nXa-Bi-V6N" secondAttribute="bottom" id="Ta1-PR-Wx9"/>
+                            <constraint firstAttribute="bottom" secondItem="nXa-Bi-V6N" secondAttribute="bottom" id="Ta1-PR-Wx9"/>
+                            <constraint firstItem="ao5-Ao-Ysf" firstAttribute="centerY" secondItem="9aE-5X-2nv" secondAttribute="centerY" priority="1" constant="-100" id="gHU-Gm-pCh"/>
                             <constraint firstItem="iZ3-E5-1NM" firstAttribute="trailing" secondItem="rx9-3Y-IF6" secondAttribute="trailing" id="hkw-Ch-TgM"/>
                             <constraint firstItem="iZ3-E5-1NM" firstAttribute="leading" secondItem="rx9-3Y-IF6" secondAttribute="leading" id="lPX-FE-V3j"/>
                             <constraint firstItem="nXa-Bi-V6N" firstAttribute="leading" secondItem="rx9-3Y-IF6" secondAttribute="leading" id="qIq-xS-daZ"/>
@@ -46,14 +57,23 @@
                             <constraint firstItem="iZ3-E5-1NM" firstAttribute="top" secondItem="rx9-3Y-IF6" secondAttribute="top" id="t6J-hQ-2VH"/>
                             <constraint firstItem="ZTE-od-Ho9" firstAttribute="centerX" secondItem="9aE-5X-2nv" secondAttribute="centerX" id="w4e-pF-kbU"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="AGP-Xg-3rn" appends="YES" id="hGL-Pf-Rjg"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="ZTE-od-Ho9" id="lZ7-i2-IdO"/>
+                        <outlet property="errorLabel" destination="ao5-Ao-Ysf" id="A2q-cq-P6P"/>
                         <outlet property="searchBar" destination="iZ3-E5-1NM" id="XTC-hd-wy1"/>
                         <outlet property="tableView" destination="nXa-Bi-V6N" id="2Gw-DW-7gG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KBV-Nl-S75" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="AGP-Xg-3rn">
+                    <connections>
+                        <action selector="viewdidTapped:" destination="8mk-Bo-Zu0" id="JkZ-h7-3tj"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="737.68115942028987" y="89.732142857142847"/>
         </scene>
@@ -61,6 +81,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

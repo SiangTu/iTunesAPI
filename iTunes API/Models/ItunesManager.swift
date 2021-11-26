@@ -17,15 +17,19 @@ struct ItunesManager {
     
     func performRequest(keyword: String){
         let url = formatItunesUrl(keyword: keyword)
-        let session = URLSession(configuration: .default)
+        let config = URLSessionConfiguration.default
+//        config.timeoutIntervalForRequest = 10
+        let session = URLSession(configuration: config)
+        
         let task = session.dataTask(with: url) { data,response,error  in
-            if let error = error {
-                delegate?.failItunesMusic("Error requesting data, \(error)")
+            if error != nil {
+                delegate?.failItunesMusic("網路連線錯誤")
             }else{
                 if let safeData = data{
                     self.parseJSON(data: safeData)
                 }else{
-                    delegate?.failItunesMusic("data is nil")
+                    delegate?.failItunesMusic("網路連線錯誤")
+                    print("response data is nil")
                 }
             }
         }
@@ -33,7 +37,8 @@ struct ItunesManager {
     }
     
     func formatItunesUrl(keyword: String) -> URL {
-        let formatKeyword = keyword.replacingOccurrences(of: " ", with: "+")
+        var formatKeyword = keyword.trimmingCharacters(in: .whitespaces)
+        formatKeyword = formatKeyword.replacingOccurrences(of: " ", with: "+")
         var urlString = "https://itunes.apple.com/search?term=\(formatKeyword)&media=music&limit=30"
         urlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         return URL(string: urlString)!
@@ -44,7 +49,7 @@ struct ItunesManager {
         do{
             let itunesData = try decoder.decode(ItunesData.self, from: data)
             if itunesData.resultCount < 1{
-                delegate?.failItunesMusic("Error result number is 0")
+                delegate?.failItunesMusic("搜尋不到相關結果")
                 return
             }
             for item in itunesData.results{
@@ -54,12 +59,12 @@ struct ItunesManager {
                                                   albumImage: nil,
                                                   previewUrl: item.previewUrl)
                     if let error = error{
-                        self.delegate?.failItunesMusic("Error requesting image, \(error)")
+                        print("Error coverting data to UIImage \(error)")
                     }else{
                         if let image = UIImage(data: data!){
                             itunesMusic.albumImage = image
                         }else{
-                            self.delegate?.failItunesMusic("Error coverting data to UIImage")
+                            print("Error coverting data to UIImage")
                         }
                     }
                     self.delegate?.setItunesMusic(itunesMusic)
@@ -67,7 +72,7 @@ struct ItunesManager {
                 task.resume()
             }
         }catch{
-            delegate?.failItunesMusic("Error decoding data, \(error)")
+            delegate?.failItunesMusic("資料存取錯誤")
         }
     }
 }

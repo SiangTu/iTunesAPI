@@ -13,6 +13,7 @@ class ResultViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var errorLabel: UILabel!
     
     private var keyword: String?
     private var itunesManager = ItunesManager()
@@ -26,6 +27,10 @@ class ResultViewController: UIViewController {
         searchBar.delegate = self
         itunesManager.delegate = self
         configureTableView()
+    }
+    
+    @IBAction func viewdidTapped(_ sender: Any) {
+        view.endEditing(true)
     }
     
     func configureTableView(){
@@ -46,10 +51,11 @@ extension ResultViewController: UISearchBarDelegate{
             itunesTracks = []
             itunesManager.performRequest(keyword: keyword!)
             activityIndicator.startAnimating()
+            errorLabel.isHidden = true
             tableView.isHidden = true
         }
         searchBar.endEditing(true)
-    
+        view.gestureRecognizers![0].isEnabled = false
     }
     
 }
@@ -69,7 +75,14 @@ extension ResultViewController: ItunesManagerDelegate{
     }
     
     func failItunesMusic(_ error: String) {
-        print(error)
+        DispatchQueue.main.async{
+            self.errorLabel.isHidden = false
+            self.errorLabel.text = error
+            self.activityIndicator.stopAnimating()
+            self.tableView.isHidden = true
+            self.view.gestureRecognizers![0].isEnabled = true
+        }
+        
     }
     
 }
@@ -112,7 +125,7 @@ extension ResultViewController: UITableViewDelegate{
         playingPlayer = AVPlayer(url: url)
         playingPlayer?.addObserver(self, forKeyPath: "rate", options: .new, context: nil)
         playingPlayer?.play()
-        
+        self.view.endEditing(true)
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -121,6 +134,10 @@ extension ResultViewController: UITableViewDelegate{
             playingPlayer = nil
             tableView.reloadData()
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.view.endEditing(true)
     }
 }
 
